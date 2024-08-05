@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>    
+
+    <title>ChatBot</title>
+
+    <style>
+        .item
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url(https://t4.ftcdn.net/jpg/04/49/87/85/360_F_449878585_YSsCp0KDf1GMkY8J5BVTuFHnWGJqn0TU.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 23px;
+        }
+        #wel{
+            font-size: 110px;
+            color: whitesmoke;
+            text-shadow: 0 0 20px rgb(32, 71, 246),0 0 5px rgb(55, 141, 49);
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .chat-container 
+        {
+            width: 400px;
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-image: url('https://i.pinimg.com/236x/af/c7/38/afc7387c3ca0e0ae234a04dfa14fbb55.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: black;
+            color: whitesmoke;
+            display: flex;
+            flex-direction: column;
+            z-index: -1;
+        }
+       
+        .chat-box 
+        {
+            padding: 10px;
+            height: 450px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+        }
+        .input-container 
+        {
+            display: flex;
+        }
+        #user-input 
+        {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            border-top: 1px solid #ddd;
+        }
+        button 
+        {
+            padding: 10px;
+            border: none;
+            background-color: rgba(216, 112, 147, 0.479);
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-top: 1px solid #ddd;
+        }
+        button:hover 
+        {
+            background-color: rgba(172, 255, 47, 0.558);
+        }
+        .message 
+        {
+            margin-bottom: 10px;
+        }
+        .message.user 
+        {
+            border: 2px solid white;
+            padding: 3px;
+            display: inline-block;
+            text-align: right;
+            float: right;
+            border-radius: 5px;
+            background-color: white;
+            margin-left: 40px;
+            color: black;
+        }
+        .message.bot 
+        {
+            text-align: left;
+            border: 2px solid white;
+            padding: 3px;
+            display: inline-block;
+            float: left;
+            border-radius: 5px;
+            margin-right: 40px;
+            background-color: white;
+            color: black;
+        }
+        nav
+        {
+            display: grid;
+            grid-template-columns: repeat(7,210px);
+            color: white;
+            background-color: black;
+        }
+        #name
+        {
+            grid-column-start:2 ;
+            grid-column-end: 5;
+            font-size: 43px;
+        }
+        #rem
+        {
+            font-size: 43px;
+        }
+        #symbol
+        {
+            height: 50px;
+            width: 50px;
+            margin-left: 10px;
+            margin-top: 10px; 
+        }
+        #LinK
+        {
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav>
+        <div ><img id="symbol" src="https://thumbs.dreamstime.com/b/chatbot-illustration-black-background-d-rendering-102786004.jpg"></div>
+        <div id="name"><b>chattyGalore</b></div>
+        <div id="rem"><a id="LinK" href="#">Login</a></div>
+        <div id="rem"><a id="LinK" href="#">Register</a></div>
+        <div id="rem"><a id="LinK" href="#">Contact us</a></div>
+    </nav>
+    <div class="item">
+    <div id="wel">Welcome to our chatbot community!</div>
+    <div>
+            <div class="chat-container">
+            <div class="chat-box" id="chat-box"></div>
+            <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type a message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    </div>
+    <script>
+        setTimeout(()=>{
+            const wel=document.getElementById('wel');
+            wel.style.display='none';
+        },3000);
+       
+        //To send a message
+        function sendMessage() 
+        {
+            const inputField = document.getElementById('user-input');
+            const messageText = inputField.value.trim();
+            if (messageText === '') return;
+            displayMessage(messageText, 'user');
+            inputField.value = '';
+            //bot response
+            setTimeout(() => { const botResponse = getBotResponse(messageText);
+            displayMessage(botResponse, 'bot'); }, 500);
+        }
+        //To display a message
+        function displayMessage(text, sender) 
+        {
+            const chatBox = document.getElementById('chat-box');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender);
+            messageDiv.textContent = text;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to the bottom
+        }
+        //bot response
+        function getBotResponse(userMessage) 
+        {
+            const lowerCaseMessage = userMessage.toLowerCase();
+            if (lowerCaseMessage.includes('hi')) 
+            {
+                return 'Hi there! How can I assist you today?';
+            }     
+            else if (lowerCaseMessage.includes('hello')) 
+            {
+                return 'Hi there! How can I help you today?';
+            }  
+            else if (lowerCaseMessage.includes('What is your name')) 
+            {
+                return "My name is Chatbot.I'm here to help answe your questions.";
+            }  
+            else if (lowerCaseMessage.includes("How's your day going?")) 
+            {
+                return "I'm doing well, thanks! I'm a large language model, so I don't have feelings like humans do, but I'm always happy to chat with you.";
+            }  
+            else if (lowerCaseMessage.includes("Tell me a joke")) 
+            {
+                return "Why couldn't the bicycle stand up by itself? Because it was two-tired!";
+            }  
+            else if (lowerCaseMessage.includes('how are you')) 
+            {
+                return 'I am just a bot, but I am doing great! How can I assist you?';
+            } 
+            else if (lowerCaseMessage.includes('thanks')) 
+            {
+                return 'Welcome! I am here to assist you any time.';
+            } 
+            else if (lowerCaseMessage.includes('bye')) 
+            {
+                return "Goodbye! It was nice chatting with you. Have a great day!";
+            } 
+            else 
+            {
+                return 'Oops, I am not sure how to respond to that. For more info : chatbox@gmail.com';
+            }
+        }
+    </script>
+    </div>
+</body>
+</html>
